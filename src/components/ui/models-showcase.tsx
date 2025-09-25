@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Grid, 
   TrendingUp, 
@@ -72,6 +73,8 @@ const productivityMethods = [
 ];
 
 export function ModelsShowcase() {
+  const { toast } = useToast();
+
   return (
     <section className="py-24 bg-muted/30">
       <div className="container mx-auto px-6">
@@ -126,7 +129,16 @@ export function ModelsShowcase() {
                         </li>
                       ))}
                     </ul>
-                    <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <Button 
+                      variant="outline" 
+                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                      onClick={() => {
+                        toast({
+                          title: `Modèle ${model.name} sélectionné`,
+                          description: "Redirection vers l'interface de création...",
+                        });
+                      }}
+                    >
                       Essayer ce modèle
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -164,7 +176,16 @@ export function ModelsShowcase() {
                     <CardDescription>{method.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Button variant="outline" className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                    <Button 
+                      variant="outline" 
+                      className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors"
+                      onClick={() => {
+                        toast({
+                          title: `Session ${method.name} démarrée`,
+                          description: "Votre session de productivité commence maintenant !",
+                        });
+                      }}
+                    >
                       Démarrer une session
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
